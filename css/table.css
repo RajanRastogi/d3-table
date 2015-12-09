@@ -1,0 +1,47 @@
+table, th, td {
+  border: none;
+}
+
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.bordered > thead > tr,
+table.bordered > tbody > tr {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+table.striped > tbody > tr > td {
+  border-radius: 0px;
+}
+
+table.highlight > tbody > tr {
+  transition: background-color 0.25s ease;
+}
+
+table.highlight > tbody > tr:hover {
+  background-color: #f2f2f2;
+}
+
+table.centered thead tr th, table.centered tbody tr td {
+  text-align: center;
+}
+
+thead {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+td, th {
+  padding: 15px 5px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px;
+}
