@@ -1,0 +1,25 @@
+{
+  "name": "D3Table",
+  "version": "0.0.0",
+  "authors": [
+    "Rajan Rastogi <rajan.rastogi@datarpm.com>"
+  ],
+  "description": "Simple HTML tables using D3",
+  "main": "src/table.js",
+  "keywords": [
+    "d3",
+    "table",
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.10"
+  }
+}
