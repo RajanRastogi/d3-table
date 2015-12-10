@@ -1,6 +1,6 @@
 ## D3Table
 
-This project mainly aims at leveraging D3's data bringing capabilities to easily create tables.
+This project mainly aims at leveraging D3's data binding capabilities to easily create tables.
 
 The project is just a hobby project, so it might not be ready for production use, so your suggestions and contributions are welcomed.
 
