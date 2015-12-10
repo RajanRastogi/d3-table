@@ -31,6 +31,35 @@
 		}
 	}
 
+	var util = {
+		prepUrl: function(url, qp) {
+			var query = [];
+			for(key in qp) {
+				query.push(urlEncode(key)+"="+urlEncode(qp[key]));
+			}
+			query = query.join("&");
+			if(url.indexOf("?") === -1){
+				url += "?"
+			}
+			url += query;
+			return url;
+		},
+		isFunction: function(d){
+			if(typeof d === "function"){
+				return true;
+			} else {
+				return false;
+			}
+		},
+		isString: function(d){
+			if(typeof d === "string"){
+				return true;
+			} else {
+				return false;
+			}
+		}
+	};
+
 	var D3Table = function(options){
 		
 		var noop = function(){};
@@ -51,7 +80,6 @@
 
 		if(options.container_id){
 			this.container_id = options.container_id;
-			console.log(this.container_id);
 		} else {
 			throw new Error("'container_id' is a required field");
 		}
@@ -62,7 +90,7 @@
 		if(!this.dataUrl){
 			throw new Error("D3Table: Please set the dataUrl");
 		}
-		var fixedUrl = D3Table.prototype._prepUrl(this.dataUrl,{ skip: skip, limit: limit });
+		var fixedUrl = util.prepUrl(this.dataUrl,{ skip: skip, limit: limit });
 		switch(this.dataType){
 			case "json":
 				d3.json(fixedUrl, cb);
@@ -155,7 +183,7 @@
 		tableBody = table.append("tbody");
 
 		var update = function(data){
-			var tableRows, cells, util = this.util;
+			var tableRows, cells;
 
 			tableRows = tableBody.selectAll(".d3t-table-row")
 				.data(data);
@@ -179,11 +207,7 @@
 				
 			cells.enter()
 				.append("td")
-					// only 1 item iterated in each
-					// each can be replaced, not sure how though
-				.each(function(d){
-					// this could possibly be slow
-					var td = d3.select(this);
+				.html(function(d){
 					if(d.settings.innerHtml !== null 
 						&& typeof d.settings.innerHtml !== "undefined" ){
 						var innerHtml = "";
@@ -192,7 +216,7 @@
 						} else if(util.isFunction(d.settings.innerHtml)){
 							innerHtml = d.settings.innerHtml(d.row_data);
 						}
-						td.html(innerHtml);
+						return innerHtml;
 					} else {
 						var cellValue = "";
 						if(util.isString(d.settings.data)){
@@ -200,11 +224,14 @@
 						} else if (util.isFunction(d.settings.data)){
 							cellValue = d.settings.data(d.row_data);
 						}
-						td.text(cellValue);
+						return cellValue;
 					}
-
+				})
+				.attr("colspan", function(d){
 					if(d.settings.colspan && typeof d.settings.colspan === "number"){
-						td.attr("colspan", d.settings.colspan)
+						return d.settings.colspan;
+					}else{
+						return null;
 					}
 				});
 
@@ -215,36 +242,6 @@
 		update(data);
 		this.table = table; 
 		D3Table.prototype.update = update;
-	};
-
-	D3Table.prototype._prepUrl = function(url, qp) {
-		var query = [];
-		for(key in qp) {
-			query.push(urlEncode(key)+"="+urlEncode(qp[key]));
-		}
-		query = query.join("&");
-		if(url.indexOf("?") === -1){
-			url += "?"
-		}
-		url += query;
-		return url;
-	};
-
-	D3Table.prototype.util = {
-		isFunction: function(d){
-			if(typeof d === "function"){
-				return true;
-			} else {
-				return false;
-			}
-		},
-		isString: function(d){
-			if(typeof d === "string"){
-				return true;
-			} else {
-				return false;
-			}
-		}
 	};
 
 	window.D3Table = D3Table;
