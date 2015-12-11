@@ -4,7 +4,7 @@ describe("D3Table", function(){
 		// create an empty container with id 'table'
 		d3.select("body").append("div").attr("id", "table");
 
-		// 
+		// ensure container is empty 
 		expect(d3.select("#table table").node()).toBe(null);
 	});
 
