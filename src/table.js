@@ -7,9 +7,9 @@
 
 		this.isHidden = options.isHidden || false; //default false
 
-		this.label = options.label || "";
+		this.colTitle = options.title || "";
 
-		this.data = options.data || this.label;
+		this.data = options.data || this.colTitle;
 
 		this.innerHtml = options.innerHtml || null;
 	}
@@ -116,7 +116,7 @@
 	D3Table.prototype.extractColumnOptions = function(sample_data){
 		var columnOptions = [];
 		for(prop in sample_data){
-			columnOptions.push(new ColumnConfig({ label: prop, data: prop }));
+			columnOptions.push(new ColumnConfig({ colTitle: prop, data: prop }));
 		}
 		return columnOptions;
 	};
@@ -188,7 +188,7 @@
 			.enter()
 			.append("th")
 				.classed("d3t-table-col-header", true)
-				.text(function(d){ return d.label; });
+				.text(function(d){ return d.title; });
 
 		this.tableBody = this.table.append("tbody");
 
