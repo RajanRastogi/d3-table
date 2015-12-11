@@ -42,10 +42,25 @@ Column configuration defines how the column needs to be displayed and what data 
 
 |    Key    |    Required    |    Default    |    Description    |
 | --------- | -------------- | ------------- | ----------------- |
-| isHidden | No | false | Flag that can be used to hide a column. Can be either `true` or `false` |
+| isHidden | No | `false` | Flag that can be used to hide a column. Can be either `true` or `false` |
 | title | No | - | Column's display title. If not provided, it tries to identify headers from the data (keys in case of json data, first row in case of csv and tsv|
 | data | No | - | `data` is used to resolve the value displayed in the column. It can be either the string denoting the key or a callback. In case of the callback, the complete row data is passed in as argument and the returned value is displayed. |
 | innerHtml | No | - | In case column content is to be html, string or a  callback returning the html can be passed in. 
+
+### Tests
+
+Tests are included in the `tests` folder. Before you run the tests, you need to run:
+```
+bower install
+npm install
+```
+
+and then directly run the tests via karma:
+```
+karma start d3table.config.js
+```
+
+The test suite is slim but we will make sure test coverage is high.
 
 ### Contribution Guidelines
 
