@@ -1,0 +1,32 @@
+{
+  "name": "d3-table",
+  "version": "0.0.1",
+  "description": "This project mainly aims at leveraging D3's data binding capabilities to easily create tables.",
+  "main": "src/table.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@code.datarpm.com:rajan.rastogi/D3Table.git"
+  },
+  "keywords": [
+    "d3",
+    "tables"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-karma": "~0.12.0",
+    "karma": "^0.13.9",
+    "karma-jasmine": "~0.3.6",
+    "karma-mocha-reporter": "^1.1.3",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "git://github.com/Lochlan/phantomjs2.git#2.0.0"
+  },
+  "author": "Rajan Rastogi",
+  "license": "MIT"
+}
