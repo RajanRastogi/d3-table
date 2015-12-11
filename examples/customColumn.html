@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Custom Columns table</title>
+	<link rel="stylesheet" type="text/css" href="../css/table.css">
+	<script src=""></script>
+	<script src="../bower_components/d3/d3.min.js"></script>
+	<script src="../src/table.js"></script>
+
+	<style type="text/css">
+		.d3t-table-title th{
+			text-align: center;
+			font-size: 24px;	
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var table = new D3Table({
+				container_id: "#table",
+				title: "Test table",
+				style: "striped",
+				columnOptions: [
+					{
+						title: "First Name",
+						data: "name"
+					},
+					{
+						title: "Age",
+						data: "age"
+					},
+					{
+						title: "Custom HTML",
+						innerHtml: function(data){
+							return "<button onclick=alert('"+data.email+"')>Click to show email</button>";
+						}
+					}
+				],
+				data: [
+					{ name: "rajan first", age: 25, email: "rajan@gmail.com" },
+					{ name: "rajan2", age: 25, email: "rajan2@gmail.com" },
+					{ name: "rajan3", age: 25, email: "rajan3@gmail.com" },
+					{ name: "rajan4", age: 25, email: "rajan4@gmail.com" }
+				]
+			});
+
+			table.draw();
+		}
+	</script>
+	<div id="table" style="width: 400px"></div>
+</body>
+</html>
