@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Simple table</title>
+	<title>Dynamic table</title>
 	<link rel="stylesheet" type="text/css" href="../css/table.css">
 	<script src="../bower_components/d3/d3.min.js"></script>
 	<script src="../src/table.js"></script>
@@ -16,25 +16,32 @@
 <body>
 	<script type="text/javascript">
 		window.onload = function(){
+			var data = [
+				{ name: "rajan1", age: 25, email: "rajan@gmail.com" },
+				{ name: "rajan2", age: 25, email: "rajan2@gmail.com" },
+				{ name: "rajan3", age: 25, email: "rajan3@gmail.com" },
+				{ name: "rajan4", age: 25, email: "rajan4@gmail.com" }
+			];
+
 			var table = new D3Table({
 				container_id: "#table",
 				title: "Test table",
 				style: "striped",
-				data: [
-					{ name: "rajan first", age: 25, email: "rajan@gmail.com" }
-				]
+				data: data
 			});
 
 			table.draw();
-
-			setTimeout(function(){
-				table.update([
-					{ name: "rajan", age: 25, email: "rajan@gmail.com" },
-					{ name: "rajan2", age: 25, email: "rajan2@gmail.com" },
-					{ name: "rajan3", age: 25, email: "rajan3@gmail.com" },
-					{ name: "rajan4", age: 25, email: "rajan4@gmail.com" }
-				])
-			}, 2000);
+			var index = 5;
+			setInterval(function(){
+				data.splice(0,1);
+				data.push({
+					name: "rajan"+index,
+					age: 25,
+					email: "rajan"+index+"@gmail.com"
+				});
+				index++;
+				table.update(data);
+			}, 1000)
 		}
 	</script>
 	<div id="table" style="width: 400px"></div>

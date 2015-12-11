@@ -62,8 +62,6 @@
 
 	D3Table = function(options){
 		
-		var noop = function(){};
-		
 		this.data = null || options.data;
 
 		this.dataUrl = options.dataUrl || "";
@@ -253,6 +251,5 @@
 			
 		cells.exit().remove();	
 	};
-
 
 })();
