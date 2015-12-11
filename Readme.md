@@ -31,6 +31,13 @@ Creates an instance of a table. The following are the config parameters:
 | --------- | -------------- | ------------- | ----------------- |
 | container_id | Yes | - | ID of the element that will act as a container of the table. |
 | title | No | - | If provided, adds a title row above the headers. It is given the class `d3t-table-title` which can be used for styling. By default no title is displayed. |
+| style | No | `borderless` | There are 3 built in styles:
+* `borderless` (default): Table has no borders all around
+* `bordered`: Provides borders around the table
+* `striped`: Shade alternate rows
+
+`striped` can be combined with any of the other |
+
 
 ### Contribution Guidelines
 
