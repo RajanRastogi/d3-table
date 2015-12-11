@@ -57,7 +57,7 @@ npm install
 
 and then directly run the tests via karma:
 ```
-karma start d3table.config.js
+npm test
 ```
 
 The test suite is slim but we will make sure test coverage is high.
