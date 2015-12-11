@@ -102,7 +102,7 @@
 				d3.tsv(fixedUrl, cb);
 				break;
 			case "csv":
-				d3.tsv(fixedUrl, cb);
+				d3.csv(fixedUrl, cb);
 				break;
 			default:
 				throw new Error("Invalid data type "+this.dataType);
