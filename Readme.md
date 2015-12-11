@@ -25,14 +25,27 @@ I know that's slim, so feel free to make feature requests.
 new D3Table(config)
 ```
 
-Creates an instance of a table. The following are the config parameters:
+Creates an instance of a table with the following possible configuration parameters.
 
 |    Key    |    Required    |    Default    |    Description    |
 | --------- | -------------- | ------------- | ----------------- |
 | container_id | Yes | - | ID of the element that will act as a container of the table. |
 | title | No | - | If provided, adds a title row above the headers. It is given the class `d3t-table-title` which can be used for styling. By default no title is displayed. |
 | style | No | `borderless` | There are 3 built in styles, default `borderless` does not apply any borders to the table. `bordered` provides borders around the table and `striped` shades alternate rows .`striped` can be combined with any of the other 2.|
+| dataUrl | No | - | Url used to fetch the data via ajax. |
+| dataType | No | `json` | When data is fetched via ajax, this denotes the data type of the response. Other possible values are `tsv` and `csv` |
+| columnOptions | No | - | A array of column configuration objects. You can read about column configurations further in this document. |
 
+#### Column Configuration
+
+Column configuration defines how the column needs to be displayed and what data it needs to bind. Following are the options that can be configured.
+
+|    Key    |    Required    |    Default    |    Description    |
+| --------- | -------------- | ------------- | ----------------- |
+| isHidden | No | false | Flag that can be used to hide a column. Can be either `true` or `false` |
+| title | No | - | Column's display title. If not provided, it tries to identify headers from the data (keys in case of json data, first row in case of csv and tsv|
+| data | No | - | `data` is used to resolve the value displayed in the column. It can be either the string denoting the key or a callback. In case of the callback, the complete row data is passed in as argument and the returned value is displayed. |
+| innerHtml | No | - | In case column content is to be html, string or a  callback returning the html can be passed in. 
 
 ### Contribution Guidelines
 
