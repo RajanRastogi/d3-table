@@ -93,6 +93,7 @@
 			throw new Error("D3Table: Please set the dataUrl");
 		}
 		var fixedUrl = util.prepUrl(this.dataUrl,{ skip: skip, limit: limit });
+		cb = cb.bind(this);
 		switch(this.dataType){
 			case "json":
 				d3.json(fixedUrl, cb);
