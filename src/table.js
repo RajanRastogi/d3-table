@@ -29,7 +29,7 @@
 				table.classed("highlight", true);
 				return;
 		}
-	}
+	};
 
 	var util = {
 		prepUrl: function(url, qp) {
@@ -60,7 +60,7 @@
 		}
 	};
 
-	var D3Table = function(options){
+	D3Table = function(options){
 		
 		var noop = function(){};
 		
@@ -77,6 +77,10 @@
 		this.pageSize = options.pageSize || 25;
 
 		this.style = options.style || "borderless"; //options borderless, bordered, striped
+
+		// TODO: more data validations
+
+		this.table = null;
 
 		if(options.container_id){
 			this.container_id = options.container_id;
@@ -135,6 +139,7 @@
 		}
 	};
 
+	// draws the initial table
 	D3Table.prototype._tabulate = function(err, data) {
 		var columnList, table, tableHeader, tableBody;
 
@@ -144,6 +149,11 @@
 
 		data = this.transform(data);
 
+		// if the table instance already exists, just update
+		if(this.table !== null) {
+			this.update(data);
+		}
+
 		if(!this.columnOptions){
 			//send sample data for extraction
 			this.columnOptions = this.extractColumnOptions(data[0]);
@@ -151,20 +161,22 @@
 		
 		columnList = this.columnOptions;
 		
-		table = d3.select(this.container_id).append("table")
-		styleTable(table, this.style);
+		this.table = d3.select(this.container_id).append("table")
+		
+		styleTable(this.table, this.style);
 
-		tableHeader = table.append("thead");
+		this.tableHeader = this.table.append("thead");
 
 		if(this.tableTitle !== null) {
-			tableHeader.append("tr")
+			this.tableHeader.append("tr")
 				.classed("d3t-table-title", true)
 				.append("th")
 					.attr("colspan", columnList.length)
 					.text(this.tableTitle);
 		}
 
-		tableHeader.append("tr")
+		this.tableHeader
+		.append("tr")
 			.selectAll("d3t-table-header")
 			.data(function(){
 				var displayedColumns = [];
@@ -180,70 +192,67 @@
 				.classed("d3t-table-col-header", true)
 				.text(function(d){ return d.label; });
 
-		tableBody = table.append("tbody");
+		this.tableBody = this.table.append("tbody");
 
-		var update = function(data){
-			var tableRows, cells;
+		this.update(data);
+	};
+	
+	// updates and re-renders table
+	D3Table.prototype.update = function(data){
+		var tableRows, cells, columnList;
 
-			tableRows = tableBody.selectAll(".d3t-table-row")
-				.data(data);
+		columnList = this.columnOptions;
 
-			tableRows.enter()
-				.append("tr")
-					.classed("d3t-table-row", true)
+		tableRows = this.tableBody.selectAll(".d3t-table-row")
+			.data(data);
 
-			tableRows.exit().remove();
+		tableRows.enter().append("tr")
+			.classed("d3t-table-row", true)
 
-			cells = tableRows.selectAll("td")
-				.data(function(row_data){
-					var bound_row_data = [];
-					columnList.forEach(function(col_settings){
-						if(!col_settings.isHidden){
-							bound_row_data.push({ settings: col_settings, row_data: row_data })
-						}
-					});
-					return bound_row_data;
-				});
-				
-			cells.enter()
-				.append("td")
-				.html(function(d){
-					if(d.settings.innerHtml !== null 
-						&& typeof d.settings.innerHtml !== "undefined" ){
-						var innerHtml = "";
-						if(util.isString(d.settings.innerHtml)){
-							innerHtml = d.settings.innerHtml;
-						} else if(util.isFunction(d.settings.innerHtml)){
-							innerHtml = d.settings.innerHtml(d.row_data);
-						}
-						return innerHtml;
-					} else {
-						var cellValue = "";
-						if(util.isString(d.settings.data)){
-							cellValue = d.row_data[d.settings.data];
-						} else if (util.isFunction(d.settings.data)){
-							cellValue = d.settings.data(d.row_data);
-						}
-						return cellValue;
-					}
-				})
-				.attr("colspan", function(d){
-					if(d.settings.colspan && typeof d.settings.colspan === "number"){
-						return d.settings.colspan;
-					}else{
-						return null;
-					}
-				});
+		tableRows.exit().remove();
 
-			cells.exit().remove();	
-		};
+		cells = tableRows.selectAll("td").data(function(row_data){
+			var bound_row_data = [];
+			columnList.forEach(function(col_settings){
+				if(!col_settings.isHidden){
+					bound_row_data.push({ settings: col_settings, row_data: row_data })
+				}
+			});
+			return bound_row_data;
+		});
 
-		update = update.bind(this);
-		update(data);
-		this.table = table; 
-		D3Table.prototype.update = update;
+		cells.enter().append("td");
+
+		cells.html(function(d){
+			if(d.settings.innerHtml !== null 
+				&& typeof d.settings.innerHtml !== "undefined" ){
+				var innerHtml = "";
+				if(util.isString(d.settings.innerHtml)){
+					innerHtml = d.settings.innerHtml;
+				} else if(util.isFunction(d.settings.innerHtml)){
+					innerHtml = d.settings.innerHtml(d.row_data);
+				}
+				return innerHtml;
+			} else {
+				var cellValue = "";
+				if(util.isString(d.settings.data)){
+					cellValue = d.row_data[d.settings.data];
+				} else if (util.isFunction(d.settings.data)){
+					cellValue = d.settings.data(d.row_data);
+				}
+				return cellValue;
+			}
+		})
+		.attr("colspan", function(d){
+			if(d.settings.colspan && typeof d.settings.colspan === "number"){
+				return d.settings.colspan;
+			}else{
+				return null;
+			}
+		});
+			
+		cells.exit().remove();	
 	};
 
-	window.D3Table = D3Table;
 
 })();
