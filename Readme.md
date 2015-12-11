@@ -34,7 +34,7 @@ Creates an instance of a table with the following possible configuration paramet
 | style | No | `borderless` | There are 3 built in styles, default `borderless` does not apply any borders to the table. `bordered` provides borders around the table and `striped` shades alternate rows .`striped` can be combined with any of the other 2.|
 | dataUrl | No | - | Url used to fetch the data via ajax. |
 | dataType | No | `json` | When data is fetched via ajax, this denotes the data type of the response. Other possible values are `tsv` and `csv` |
-| columnOptions | No | - | A array of column configuration objects. You can read about column configurations further in this document. |
+| columnOptions | No | - | An array of column configuration objects. You can read about column configurations further in this document. |
 
 #### Column Configuration
 
