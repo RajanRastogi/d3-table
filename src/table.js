@@ -35,7 +35,7 @@
 		prepUrl: function(url, qp) {
 			var query = [];
 			for(key in qp) {
-				query.push(urlEncode(key)+"="+urlEncode(qp[key]));
+				query.push(encodeURIComponent(key)+"="+encodeURIComponent(qp[key]));
 			}
 			query = query.join("&");
 			if(url.indexOf("?") === -1){
