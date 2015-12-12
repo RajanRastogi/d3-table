@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tranformed table</title>
+	<link rel="stylesheet" type="text/css" href="../css/table.css">
+	<script src="../bower_components/d3/d3.min.js"></script>
+	<script src="../src/table.js"></script>
+
+	<style type="text/css">
+		.d3t-table-title th{
+			text-align: center;
+			font-size: 24px;	
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var table = new D3Table({
+				container_id: "#table",
+				title: "Test table",
+				style: "striped",
+				data: {
+					headers: ["name", "age", "email"],
+					data: [
+						["rajan1", 25, "rajan1@gmail.com"],
+						["rajan2", 25, "rajan2@gmail.com"],
+						["rajan3", 25, "rajan3@gmail.com"]
+					]
+				}
+			});
+
+			table.transform = function(res){
+				var headers = res.headers;
+				var transformedData = [];
+				res.data.forEach(function(data){
+					var row = {};
+					headers.forEach(function(header, index){
+						row[header] = data[index];
+					});
+					transformedData.push(row);
+				});
+				return transformedData;
+			}
+
+			table.draw();
+		}
+	</script>
+	<div id="table" style="width: 400px"></div>
+</body>
+</html>
