@@ -47,6 +47,52 @@ Column configuration defines how the column needs to be displayed and what data 
 | data | No | - | `data` is used to resolve the value displayed in the column. It can be either the string denoting the key or a callback. In case of the callback, the complete row data is passed in as argument and the returned value is displayed. |
 | innerHtml | No | - | In case column content is to be html, string or a  callback returning the html can be passed in. 
 
+### Data Transformer
+
+Data that needs to be passed into `D2Table` needs to be an array of objects. As this might not be an ideal datastructure for all, a provision to transform data is provided.
+
+A `tansform` function can be registered on the table instance (created via constructor) which gets all the data as an argument. It is expected to return the data in its final form. Here is an example:
+
+```javascript
+
+var table = new D3Table({
+	container_id: "#table",
+	title: "Test table",
+	style: "striped",
+	dataUrl: "http://random.com/data",
+	dataType: "json"
+});
+
+/*
+input data format:
+{
+	headers: ["name", "age", "email"],
+	data: [
+		["rajan1", 25, "rajan1@gmail.com"],
+		["rajan2", 25, "rajan2@gmail.com"],
+		["rajan3", 25, "rajan3@gmail.com"]
+	]
+}
+*/
+
+// write the transformer to transform into array of objects
+table.transform = function(res){
+	var headers = res.headers;
+	var transformedData = [];
+	res.data.forEach(function(data){
+		var row = {};
+		headers.forEach(function(header, index){
+			row[header] = data[index];
+		});
+		transformedData.push(row);
+	});
+	return transformedData;
+}
+
+table.draw();
+
+```
+
 ### Tests
 
 Tests are included in the `tests` folder. Before you run the tests, you need to run:
@@ -55,7 +101,7 @@ bower install
 npm install
 ```
 
-and then directly run the tests via karma:
+and then directly run the tests via npm:
 ```
 npm test
 ```
