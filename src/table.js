@@ -117,7 +117,7 @@
 	D3Table.prototype.extractColumnOptions = function(sample_data){
 		var columnOptions = [];
 		for(prop in sample_data){
-			columnOptions.push(new ColumnConfig({ colTitle: prop, data: prop }));
+			columnOptions.push(new ColumnConfig({ title: prop, data: prop }));
 		}
 		return columnOptions;
 	};
@@ -157,7 +157,6 @@
 			//send sample data for extraction
 			this.columnOptions = this.extractColumnOptions(data[0]);
 		}
-		
 		columnList = this.columnOptions;
 		
 		this.table = d3.select(this.container_id).append("table")
@@ -189,7 +188,7 @@
 			.enter()
 			.append("th")
 				.classed("d3t-table-col-header", true)
-				.text(function(d){ return d.title; });
+				.text(function(d){ return d.colTitle; });
 
 		this.tableBody = this.table.append("tbody");
 
