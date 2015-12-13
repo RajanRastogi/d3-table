@@ -12,6 +12,8 @@
 		this.data = options.data || this.colTitle;
 
 		this.innerHtml = options.innerHtml || null;
+
+		this.classes = options.classed || [];
 	}
 
 	var styleTable = function(table, style){
@@ -75,6 +77,8 @@
 		this.pageSize = options.pageSize || 25;
 
 		this.style = options.style || "borderless"; //options borderless, bordered, striped
+
+		this.classes = options.classed || [];
 
 		// TODO: more data validations
 
@@ -156,6 +160,10 @@
 		if(!this.columnOptions){
 			//send sample data for extraction
 			this.columnOptions = this.extractColumnOptions(data[0]);
+		} else {
+			this.columnOptions = this.columnOptions.map(function(config){
+				return new ColumnConfig(config);
+			});
 		}
 		columnList = this.columnOptions;
 		
@@ -187,6 +195,15 @@
 			})
 			.enter()
 			.append("th")
+				.attr("class", function(d){
+					if(Array.isArray(d.classes) && d.classes.length > 0){
+						return d.classes.join("");	
+					} else if(typeof d.classes === "string"){
+						return d.classes;
+					} else {
+						return null;
+					}
+				})
 				.classed("d3t-table-col-header", true)
 				.text(function(d){ return d.colTitle; });
 
@@ -209,15 +226,16 @@
 
 		tableRows.exit().remove();
 
-		cells = tableRows.selectAll("td").data(function(row_data){
-			var bound_row_data = [];
-			columnList.forEach(function(col_settings){
-				if(!col_settings.isHidden){
-					bound_row_data.push({ settings: col_settings, row_data: row_data })
-				}
+		cells = tableRows.selectAll("td")
+			.data(function(row_data){
+				var bound_row_data = [];
+				columnList.forEach(function(col_settings){
+					if(!col_settings.isHidden){
+						bound_row_data.push({ settings: col_settings, row_data: row_data })
+					}
+				});
+				return bound_row_data;
 			});
-			return bound_row_data;
-		});
 
 		cells.enter().append("td");
 
@@ -239,6 +257,15 @@
 					cellValue = d.settings.data(d.row_data);
 				}
 				return cellValue;
+			}
+		})
+		.attr("class", function(d){
+			if(Array.isArray(d.settings.classes) && d.settings.classes.length > 0){
+				return d.settings.classes.join("");	
+			} else if(typeof d.settings.classes === "string"){
+				return d.settings.classes;
+			} else {
+				return null;
 			}
 		})
 		.attr("colspan", function(d){
