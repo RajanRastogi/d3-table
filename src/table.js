@@ -16,21 +16,27 @@
 		this.classes = options.classed || [];
 	}
 
-	var styleTable = function(table, style){
-		switch(style){
-			case "borderless":
-				table.classed("highlight", true);
-				return;
-			case "bordered":
-				table.classed("bordered highlight", true);
-				return;
-			case "striped":
-				table.classed("striped", true);
-				return;
-			default: 
-				table.classed("highlight", true);
-				return;
+	var styleTable = function(table, styles){
+		
+		if(styles.indexOf("striped") < 0){
+			table.classed("highlight", true);
 		}
+		
+		styles.forEach(function(style){
+			switch(style){
+				case "borderless":
+					return;
+				case "bordered":
+					table.classed("bordered", true);
+					return;
+				case "striped":
+					table.classed("striped", true);
+					return;
+				default:
+					table.classed(style, true);
+					return;
+			}
+		})
 	};
 
 	var util = {
@@ -76,8 +82,17 @@
 
 		this.pageSize = options.pageSize || 25;
 
-		this.style = options.style || "borderless"; //options borderless, bordered, striped
-
+		if(options.style){
+			if(typeof options.style === "string"){
+				this.style = [options.style];
+			
+			} else if(Array.isArray(options.style)){
+				this.style = options.style;
+			}
+		} else {
+			this.style = ["borderless"]; //options borderless, bordered, striped	
+		}
+		
 		this.classes = options.classed || [];
 
 		// TODO: more data validations
@@ -168,7 +183,6 @@
 		columnList = this.columnOptions;
 		
 		this.table = d3.select(this.container_id).append("table")
-		
 		styleTable(this.table, this.style);
 
 		this.tableHeader = this.table.append("thead");
