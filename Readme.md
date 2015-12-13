@@ -49,7 +49,7 @@ Column configuration defines how the column needs to be displayed and what data 
 
 ### Data Transformer
 
-Data that needs to be passed into `D2Table` needs to be an array of objects. As this might not be an ideal datastructure for all, a provision to transform data is provided.
+Data that needs to be passed into `D3Table` needs to be an array of objects. As this might not be an ideal datastructure for all, a provision to transform data is provided.
 
 A `tansform` function can be registered on the table instance (created via constructor) which gets all the data as an argument. It is expected to return the data in its final form. Here is an example:
 
