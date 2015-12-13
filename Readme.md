@@ -46,6 +46,7 @@ Column configuration defines how the column needs to be displayed and what data 
 | title | No | - | Column's display title. If not provided, it tries to identify headers from the data (keys in case of json data, first row in case of csv and tsv|
 | data | No | - | `data` is used to resolve the value displayed in the column. It can be either the string denoting the key or a callback. In case of the callback, the complete row data is passed in as argument and the returned value is displayed. |
 | innerHtml | No | - | In case column content is to be html, string or a  callback returning the html can be passed in. 
+| classed | No | [] | Classes that should be applied to all cells in the column. Either a string or an array of strings can be passed. |
 
 ### Data Transformer
 
