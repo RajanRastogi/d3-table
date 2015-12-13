@@ -24,6 +24,7 @@ describe("D3Table", function(){
 		
 		var d3_table = d3.select("#table table");
 		expect(d3_table.node()).not.toBe(null);
+		expect(d3_table.selectAll("thead tr")[0].length).toBe(2);
 		expect(d3_table.selectAll("tbody tr")[0].length).toBe(2);
 	});
 
@@ -56,5 +57,5 @@ describe("D3Table", function(){
 
 	afterEach(function(){
 		d3.select("#table").remove();
-	})
+	});
 });
