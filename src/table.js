@@ -72,6 +72,8 @@
 		
 		this.data = null || options.data;
 
+		this.table = null;
+
 		this.dataUrl = options.dataUrl || "";
 
 		this.dataType = options.dataType || "json"; // array of either json, csv, tsv
@@ -81,6 +83,12 @@
 		this.columnOptions = options.columnOptions || null;
 
 		this.pageSize = options.pageSize || 25;
+
+		this.classes = options.classed || [];
+
+		if(options.transform && typeof options.transform === "function"){
+			this.transform = options.transform;
+		}
 
 		if(options.style){
 			if(typeof options.style === "string"){
@@ -92,12 +100,6 @@
 		} else {
 			this.style = ["borderless"]; //options borderless, bordered, striped	
 		}
-		
-		this.classes = options.classed || [];
-
-		// TODO: more data validations
-
-		this.table = null;
 
 		if(options.container_id){
 			this.container_id = options.container_id;
