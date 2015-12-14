@@ -1,6 +1,6 @@
 {
   "name": "d3-table",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This project mainly aims at leveraging D3's data binding capabilities to easily create tables.",
   "main": "src/table.js",
   "directories": {
