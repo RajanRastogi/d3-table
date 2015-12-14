@@ -6,7 +6,7 @@ The project is just a hobby project, so it might not be ready for production use
 
 ### Features
 
-Following are the features currently supported (v 0.0.1):
+Following are the features currently supported:
 
 * Support for json, csv, tsv data via ajax
 * Support for custom data formats
