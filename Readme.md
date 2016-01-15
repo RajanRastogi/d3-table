@@ -32,6 +32,7 @@ Creates an instance of a table with the following possible configuration paramet
 | container_id | Yes | - | ID of the element that will act as a container of the table. |
 | title | No | - | If provided, adds a title row above the headers. It is given the class `d3t-table-title` which can be used for styling. By default no title is displayed. |
 | style | No | `borderless` | There are 3 built in styles, default `borderless` does not apply any borders to the table. `bordered` provides borders around the table and `striped` shades alternate rows .`striped` can be combined with any of the other 2.|
+| data | No | - | Data to be shown in the table. An array of objects can be directly consumed. For any other data format, you will need to use the `Data Transformer`.
 | dataUrl | No | - | Url used to fetch the data via ajax. |
 | dataType | No | `json` | When data is fetched via ajax, this denotes the data type of the response. Other possible values are `tsv` and `csv` |
 | columnOptions | No | - | An array of column configuration objects. You can read about column configurations further in this document. |
