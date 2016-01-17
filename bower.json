@@ -2,7 +2,7 @@
   "name": "D3Table",
   "version": "0.1.0",
   "authors": [
-    "Rajan Rastogi <rajan.rastogi@datarpm.com>"
+    "Rajan Rastogi <rajan1311@gmail.com>"
   ],
   "description": "Simple HTML tables using D3",
   "main": "src/table.js",
