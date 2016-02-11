@@ -18,6 +18,13 @@ Following are the features that are in pipeline:
 
 I know that's slim, so feel free to make feature requests.
 
+### Installation
+
+Easiest way to install would be via `bower`.
+
+```
+	bower install d3-table --save
+```
 
 ### API
 
