@@ -1,4 +1,4 @@
-d3-table ![Build Status](https://travis-ci.org/RajanRastogi/D3Table.svg?branch=master)
+d3-table ![Build Status](https://api.travis-ci.org/RajanRastogi/d3-table.svg)
 =======
 This project mainly aims at leveraging D3's data binding capabilities to easily create tables.
 
